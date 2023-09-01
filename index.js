@@ -2,7 +2,6 @@ const { Client, GatewayIntentBits, Collection } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 const mongoose = require('mongoose');
-module.exports = { mongoose, uri}
 const client = new Client({ 
 	intents: [
 	 GatewayIntentBits.Guilds,
@@ -15,8 +14,8 @@ const client = new Client({
 	],
 });
 
-const token = require('config.json');
-const uri = require('config.json');
+const token = require('./config.json').token;
+const uri = require('./config.json').uri;
 
 client.commands = new Collection();
 const commandsPath = path.join(__dirname, 'Commands');
