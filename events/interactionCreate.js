@@ -15,7 +15,7 @@ module.exports = {
 	    try {
 		    await command.execute(inter);
 	    } catch (error) {
-		    console.log(error)
+		    console.log(error);
 	    }
     }
 }
