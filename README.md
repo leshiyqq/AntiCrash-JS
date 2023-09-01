@@ -23,6 +23,7 @@
     "token": "",
     "clientId": "",
     "guildId": "",
+    "DMUserid": "",
     "uri": ""
 }
 ```
