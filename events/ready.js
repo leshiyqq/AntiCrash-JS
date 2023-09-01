@@ -7,7 +7,7 @@ module.exports = {
 		console.log(`${client.user.username} ready!`);
 	    client.user.setPresence({
 		    activities: [{
-			    name: 'AntiCrash by leshiy | 0.4',
+			    name: 'AntiCrash by leshiy | 0.5',
 			    type: ActivityType.Streaming,
 			    url: 'https://twitch.tv/leshiytt'
 		    }],

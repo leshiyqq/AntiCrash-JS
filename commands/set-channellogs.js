@@ -19,8 +19,11 @@ module.exports = {
             if (!channel.guild) return false;
             try {
                 let findDocs = await lc.findOne({ gid: interaction.guild.id});
-                await findDocs.updateOne({$set:{cid: channel.id}});
-                await interaction.reply(`Успешно, канал ${channel.name} теперь канал для логов!`)
+                if (findDocs.logs === false) return await interaction.reply("Логи отключены!");
+                else {
+                    await findDocs.updateOne({$set:{cid: channel.id}});
+                    await interaction.reply(`Успешно, канал ${channel.name} теперь канал для логов!`)
+                }
             } catch (e) {
                 return await interaction.reply({embeds: [errEmb]});
             }

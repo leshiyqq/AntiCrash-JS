@@ -10,7 +10,8 @@ const client = new Client({
 	 GatewayIntentBits.MessageContent,
 	 GatewayIntentBits.GuildPresences,
 	 GatewayIntentBits.GuildMessageReactions,
-	 GatewayIntentBits.GuildIntegrations
+	 GatewayIntentBits.GuildIntegrations,
+	 GatewayIntentBits.GuildMessageTyping
 	],
 });
 
@@ -45,8 +46,11 @@ for (const file of eventFiles) {
 
 (async () => {
 	try {
-		await mongoose.connect(uri);
-		console.log("Connected to DB.");
+		if (uri == "" || uri == null) console.log("DB has not found.");
+		else {
+			await mongoose.connect(uri);
+			console.log("Connected to DB.");
+		}
 	} catch (e) {
 		console.log(e);
 	}

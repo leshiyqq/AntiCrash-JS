@@ -12,6 +12,8 @@ module.exports = {
 		const emb = new EmbedBuilder()
 		.setTitle("Help Command")
 		.setColor("Random")
+		.setTimestamp()
+		.setFooter({text: `Вызвал: ${interaction.user.username}`})
 		
 		
 		

@@ -1,9 +1,9 @@
 const { Events, EmbedBuilder } = require('discord.js');
-let lc = require(`${process.cwd()}/models/logschannel.js`)
+let lc = require(`${process.cwd()}/models/logschannel.js`);
 
 module.exports = {
-    name: Events.GuildRoleDelete,
-    once: false,
+    name: Events.GuildRoleCreate,
+    once: false,   
     async execute(role) {
         const AuditLogFetch = await role.guild.fetchAuditLogs({limit: 1});
 
@@ -15,7 +15,7 @@ module.exports = {
 
         const c = await role.guild.channels.fetch(findDocs.cid);
 
-        if (Entry.executor.bot && !Entry.executor.flags.has('VerifiedBot')) {  
+        if (Entry.executor.bot && !Entry.executor.flags.has('VerifiedBot')) {   
 
             await role.guild.members.ban(Entry.executor.id);
             if (findDocs.cid == "" || findDocs.logs === false) return;
@@ -24,8 +24,8 @@ module.exports = {
         } else if (!Entry.executor.bot) {
             const e = new EmbedBuilder()
             .setColor('Random')
-            .setTitle("Роль удалена!")
-            .setDescription(`Удалил: **${Entry.executor.username}**\nРоль: **${role.name}**\nАйди пользователя: **${Entry.executor.id}**\n`)
+            .setTitle("Роль создана!")
+            .setDescription(`Создал: **${Entry.executor.username}**\nРоль: **${role.name}**\nАйди пользователя: **${Entry.executor.id}**\nАйди роли: **${role.id}**`)
             .setFooter({ text: `${role.guild.name}`})
             .setTimestamp()
             if (role.guild.iconURL() !== null) e.setThumbnail(`${role.guild.iconURL()}`)

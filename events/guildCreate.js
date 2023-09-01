@@ -8,7 +8,7 @@ module.exports = {
         let findDocs = await lc.findOne({gid: guild.id})
 
         if (!findDocs) {
-        let docs = new lc({gid: guild.id, cid: ""});
+        let docs = new lc({gid: guild.id, cid: "", logs: false});
         docs.save();
         }
     }
