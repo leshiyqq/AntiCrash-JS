@@ -2,8 +2,9 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('userinfo')
+		.setName('user-info')
 		.setDescription('Показывает информацию про пользователя')
+		.setDMPermission(false)
 		.addUserOption(option => 
 			option
 			.setName('user')
@@ -35,8 +36,8 @@ module.exports = {
 			.addFields({name: `Зашел на ${interaction.guild.name}`, value: `${resg}`, inline: true})
 			.addFields({name: 'ЭтоБот?', value: user.bot ? "Да" : "Нет", inline: true})
 			.addFields({name: 'Айди', value: `${user.id}`, inline: true})
-		if (member.presence == null) emb.addFields({name: 'Статус', value: "offline", inline: true})
-		else emb.addFields({name: 'Статус', value: member.presence.status, inline: true})
+		if (member.presence == null) emb.addFields({name: 'Статус', value: "offline", inline: true});
+		else emb.addFields({name: 'Статус', value: member.presence.status, inline: true});
 		if (user.flags.toArray() == null || user.flags.toArray() == '') emb.addFields({name: 'Значки', value: "Нету", inline: true});
 		else emb.addFields({name: 'Значки', value: `${user.flags.toArray().join(', ')}`, inline: true});
 		

@@ -1,9 +1,11 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+let lc = require(`${process.cwd()}/models/logschannel.js`);
 
 module.exports = {
     data: new SlashCommandBuilder()
-    .setName('serverinfo')
-    .setDescription('Показывает информацию про сервер'),
+    .setName('server-info')
+    .setDescription('Показывает информацию про сервер')
+    .setDMPermission(false),
     async execute(interaction) {
         const guild = interaction.client.guilds.cache.get(interaction.guild.id);
 
@@ -11,6 +13,10 @@ module.exports = {
 		const year = gc.getFullYear(), month = gc.getMonth(), date = gc.getDate();
  		const res = `${date}d ${month}m ${year}`;
 
+        const findDocs = await lc.findOne({ gid: interaction.guild.id });
+        const logs = findDocs.logs;
+        let logs_channel = null;
+        if (findDocs.cid !== "") { logs_channel = interaction.guild.channels.cache.get(`${findDocs.cid}`); }
 
         const e = new EmbedBuilder()
         .setColor('Random')
@@ -19,9 +25,11 @@ module.exports = {
         .addFields({name: "Дата создания", value: res, inline: true})
         .addFields({name: "Участников", value: `${guild.memberCount}`, inline: true})
         .addFields({name: "Каналов", value: `${guild.channels.channelCountWithoutThreads}`, inline: true})
+        .addFields({name: "Логи", value: logs ? "Включены" : "Отключены", inline: true})
         .setFooter({ text: `Вызвал: ${interaction.user.username}`, inline: true})
-        if (guild.iconURL() !== null) e.setThumbnail(`${guild.iconURL()}`)
         .setTimestamp()
+        if (guild.iconURL() !== null) e.setThumbnail(`${guild.iconURL()}`);
+        if (logs_channel !== null) { e.addFields({name: "Канал логов", value: logs_channel.name, inline: true}); }
         await interaction.reply({embeds: [e]});
     }
 }

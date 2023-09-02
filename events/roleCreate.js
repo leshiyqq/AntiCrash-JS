@@ -28,7 +28,7 @@ module.exports = {
             .setDescription(`Создал: **${Entry.executor.username}**\nРоль: **${role.name}**\nАйди пользователя: **${Entry.executor.id}**\nАйди роли: **${role.id}**`)
             .setFooter({ text: `${role.guild.name}`})
             .setTimestamp()
-            if (role.guild.iconURL() !== null) e.setThumbnail(`${role.guild.iconURL()}`)
+            if (role.guild.iconURL() !== null) e.setThumbnail(`${role.guild.iconURL()}`);
             if (findDocs.cid == "" || findDocs.logs === false) return;
             else await c.send({embeds: [e]});
         }

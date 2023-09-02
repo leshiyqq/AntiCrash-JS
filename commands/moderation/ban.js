@@ -5,6 +5,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('ban')
 		.setDescription('Банит пользователя')
+        .setDMPermission(false)
 		.addUserOption(option => 
 			option
 			.setName('member')
@@ -30,8 +31,8 @@ module.exports = {
             .setFooter({text: `Забанил: ${interaction.user.username}`})
             .setThumbnail(`${interaction.user.avatarURL()}`)
             .setTimestamp()
-            if (reas == null) e.setDescription(`**Я забанил - ${user.username}**\n**Его айди - ${user.id}**\n**Причина не указана**`)
-            else e.setDescription(`**Я забанил - ${user.username}**\n**Его айди - ${user.id}**\n**По причине - ${reas}**`)
+            if (reas == null) e.setDescription(`**Я забанил - ${user.username}**\n**Его айди - ${user.id}**\n**Причина не указана**`);
+            else e.setDescription(`**Я забанил - ${user.username}**\n**Его айди - ${user.id}**\n**По причине - ${reas}**`);
             await interaction.reply({embeds: [e]});
         } catch (e) {
             if (e.code == 50013) return await interaction.reply(`Я не могу забанить ${user.username} из-за нехватки прав`);

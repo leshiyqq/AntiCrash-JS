@@ -6,4 +6,4 @@ const errEmb = new EmbedBuilder()
 .setColor("Random")
 .setTimestamp()
 
-module.exports = errEmb;
+module.exports = errEmb

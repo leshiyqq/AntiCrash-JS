@@ -23,4 +23,4 @@ const rest = new REST({ version: '10' }).setToken(token);
 
 rest.put(Routes.applicationCommands(clientId), {body: commands})
 	.then(() => console.log("Succesfully"))
-	.catch(console.error)
+	.catch(console.error);

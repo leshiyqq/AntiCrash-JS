@@ -30,7 +30,7 @@ module.exports = {
             .setDescription(`Создал: **${Entry.executor.username}**\nКанал: **${channel.name}**\nАйди пользователя: **${Entry.executor.id}**\nАйди канала: **${channel.id}**`)
             .setFooter({ text: `${channel.guild.name}`})
             .setTimestamp()
-            if (channel.guild.iconURL() !== null) e.setThumbnail(`${channel.guild.iconURL()}`)
+            if (channel.guild.iconURL() !== null) e.setThumbnail(`${channel.guild.iconURL()}`);
             if (findDocs.cid == "" || findDocs.logs === false) return;
             else await c.send({embeds: [e]});
         }

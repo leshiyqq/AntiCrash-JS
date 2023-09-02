@@ -5,6 +5,7 @@ module.exports = {
     data: new SlashCommandBuilder()
     .setName('unban')
     .setDescription('Дает разбан пользователю')
+    .setDMPermission(false)
     .addStringOption(option => 
         option
         .setName('userid')

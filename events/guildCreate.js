@@ -6,10 +6,10 @@ module.exports = {
     name: Events.GuildCreate,
     once: false,
     async execute (guild) {
-        let findDocs = await lc.findOne({gid: guild.id})
+        let findDocs = await lc.findOne({gid: guild.id});
 
         if (!findDocs) {
-        let docs = new lc({gid: guild.id, cid: "", logs: false});
+        let docs = new lc({gid: guild.id, cid: "", logs: false, protect: true});
         docs.save();
         }
 

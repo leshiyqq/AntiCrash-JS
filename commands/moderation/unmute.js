@@ -5,6 +5,7 @@ module.exports = {
     data: new SlashCommandBuilder()
     .setName('unmute')
     .setDescription('Дает размут пользователю')
+    .setDMPermission(false)
     .addUserOption(option => 
         option
         .setName('user')
@@ -13,7 +14,7 @@ module.exports = {
     ),
     async execute(interaction) {
         const user = interaction.options.getUser('user');
-        const member = await interaction.guild.members.fetch(user.id)
+        const member = await interaction.guild.members.fetch(user.id);
 
         if (!member) return await interaction.reply("Этот пользователь не на сервере!");
 

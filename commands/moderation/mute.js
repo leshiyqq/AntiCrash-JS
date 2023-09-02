@@ -5,6 +5,7 @@ module.exports = {
     data: new SlashCommandBuilder()
     .setName('mute')
     .setDescription('Дает мут пользователю')
+    .setDMPermission(false)
     .addUserOption(option => 
         option
         .setName('user')

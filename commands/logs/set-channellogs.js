@@ -7,6 +7,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('set-channellogs')
         .setDescription('Ставит канал для логов')
+        .setDMPermission(false)
         .addChannelOption(option =>
             option
             .setName('channel')
@@ -22,7 +23,7 @@ module.exports = {
                 if (findDocs.logs === false) return await interaction.reply("Логи отключены!");
                 else {
                     await findDocs.updateOne({$set:{cid: channel.id}});
-                    await interaction.reply(`Успешно, канал ${channel.name} теперь канал для логов!`)
+                    await interaction.reply(`Успешно, канал ${channel.name} теперь канал для логов!`);
                 }
             } catch (e) {
                 return await interaction.reply({embeds: [errEmb]});

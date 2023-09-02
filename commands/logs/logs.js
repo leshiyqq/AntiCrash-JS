@@ -5,6 +5,7 @@ module.exports = {
     data: new SlashCommandBuilder()
     .setName('logs')
     .setDescription('Включает или выключает логи на сервере')
+    .setDMPermission(false)
     .addBooleanOption(option =>
         option
         .setName('toogle')
