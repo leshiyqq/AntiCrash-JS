@@ -2,7 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('ping')
-		.setDescription('Replies with Pong!'),
+		.setDescription('Отправляет пинг бота'),
 	async execute(interaction) {
 		const e = new EmbedBuilder()
 		.setColor("Random")

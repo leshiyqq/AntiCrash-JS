@@ -13,8 +13,8 @@ module.exports = {
         .setColor('DarkRed')
         .setTitle("Бота выгнали/забанили на сервере!")
         .setDescription(`Сервер: **${guild.name}**\nАйди сервера: **${guild.id}**\nУчастников: **${guild.memberCount}**\nОвнер: **${owner.username}**\nАйди овнера: **${owner.id}**`)
-        .setThumbnail(`${guild.iconURL()}`)
         .setTimestamp()
+        if (guild.iconURL() !== null) e.setThumbnail(`${guild.iconURL()}`);
 
         user.send({embeds: [e]});
     }

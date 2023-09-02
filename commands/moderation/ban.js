@@ -4,17 +4,17 @@ const errEmb = require(`${process.cwd()}/models/errEmbed.js`);
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('ban')
-		.setDescription('Banned a member')
+		.setDescription('Банит пользователя')
 		.addUserOption(option => 
 			option
 			.setName('member')
-			.setDescription('Who?')
+			.setDescription('Кто?')
             .setRequired(true)
 		)
         .addStringOption(option =>
             option
             .setName('reason')
-            .setDescription('Input reason here')  
+            .setDescription('Укажите причину')  
         ),
 
 	async execute(interaction) {

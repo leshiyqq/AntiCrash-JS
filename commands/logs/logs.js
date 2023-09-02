@@ -4,7 +4,7 @@ let lc = require(`${process.cwd()}/models/logschannel.js`);
 module.exports = {
     data: new SlashCommandBuilder()
     .setName('logs')
-    .setDescription('Включает или выключает логи на данном сервере!')
+    .setDescription('Включает или выключает логи на сервере')
     .addBooleanOption(option =>
         option
         .setName('toogle')

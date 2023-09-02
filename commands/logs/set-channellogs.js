@@ -6,11 +6,11 @@ let lc = require(`${process.cwd()}/models/logschannel.js`);
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('set-channellogs')
-        .setDescription('Set channel of logs')
+        .setDescription('Ставит канал для логов')
         .addChannelOption(option =>
             option
             .setName('channel')
-            .setDescription('Which channel?')
+            .setDescription('Выберите канал')
             .setRequired(true)      
         ),
 

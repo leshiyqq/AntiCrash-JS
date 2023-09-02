@@ -3,11 +3,11 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('userinfo')
-		.setDescription('Send user info of mentioned member')
+		.setDescription('Показывает информацию про пользователя')
 		.addUserOption(option => 
 			option
 			.setName('user')
-			.setDescription('Choose a user')
+			.setDescription('Выберите пользователя')
 		),
 
 	async execute(interaction) {
@@ -26,19 +26,19 @@ module.exports = {
 
 		const emb = new EmbedBuilder()
 			.setColor('Random')
-			.setTitle('User Info')
+			.setTitle('Информация про пользователя')
 			.setThumbnail(user.avatarURL())
 			.setTimestamp()
 			.setFooter({ text: `Вызвал: ${interaction.user.username}`, iconURL: `${interaction.user.avatarURL()}` })
-			.addFields({name: 'Name', value: `${user.username}`, inline: true})
-			.addFields({name: 'Joined to Discord', value: `${res}`, inline: true})
-			.addFields({name: `Joined to ${interaction.guild.name}`, value: `${resg}`, inline: true})
-			.addFields({name: 'isBot?', value: user.bot ? "Yes" : "No", inline: true})
-			.addFields({name: 'ID', value: `${user.id}`, inline: true})
-		if (member.presence == null) emb.addFields({name: 'Status', value: "offline", inline: true})
-		else emb.addFields({name: 'Status', value: member.presence.status, inline: true})
-		if (user.flags.toArray() == null || user.flags.toArray() == '') emb.addFields({name: 'Flags', value: "None", inline: true});
-		else emb.addFields({name: 'Flags', value: `${user.flags.toArray().join(', ')}`, inline: true});
+			.addFields({name: 'Никнейм', value: `${user.username}`, inline: true})
+			.addFields({name: 'Присоединился к Дискорду', value: `${res}`, inline: true})
+			.addFields({name: `Зашел на ${interaction.guild.name}`, value: `${resg}`, inline: true})
+			.addFields({name: 'ЭтоБот?', value: user.bot ? "Да" : "Нет", inline: true})
+			.addFields({name: 'Айди', value: `${user.id}`, inline: true})
+		if (member.presence == null) emb.addFields({name: 'Статус', value: "offline", inline: true})
+		else emb.addFields({name: 'Статус', value: member.presence.status, inline: true})
+		if (user.flags.toArray() == null || user.flags.toArray() == '') emb.addFields({name: 'Значки', value: "Нету", inline: true});
+		else emb.addFields({name: 'Значки', value: `${user.flags.toArray().join(', ')}`, inline: true});
 		
 		await interaction.reply({embeds: [emb]});
 }}

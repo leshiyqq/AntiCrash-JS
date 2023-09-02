@@ -4,11 +4,11 @@ const errEmb = require(`${process.cwd()}/models/errEmbed.js`);
 module.exports = {
     data: new SlashCommandBuilder()
     .setName('unmute')
-    .setDescription('Unmute a member')
+    .setDescription('Дает размут пользователю')
     .addUserOption(option => 
         option
         .setName('user')
-        .setDescription('Who?')
+        .setDescription('Укажите пользователя')
         .setRequired(true)
     ),
     async execute(interaction) {

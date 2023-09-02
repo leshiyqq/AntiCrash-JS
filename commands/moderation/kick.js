@@ -4,11 +4,11 @@ const errEmb = require(`${process.cwd()}/models/errEmbed.js`);
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('kick')
-        .setDescription('Kicked a member')
+        .setDescription('Выгоняет пользователя')
         .addUserOption(option =>
             option
             .setName('user')
-            .setDescription('Who?')
+            .setDescription('Кто?')
             .setRequired(true)       
         ),
 

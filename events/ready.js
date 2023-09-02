@@ -1,4 +1,5 @@
 const { Events, ActivityType } = require('discord.js');
+const prof = require(`${process.cwd()}/models/profileuser.js`);
 
 module.exports = {
 	name: Events.ClientReady,

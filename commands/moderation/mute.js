@@ -4,17 +4,17 @@ const errEmb = require(`${process.cwd()}/models/errEmbed.js`);
 module.exports = {
     data: new SlashCommandBuilder()
     .setName('mute')
-    .setDescription('Gives out timeout to user')
+    .setDescription('Дает мут пользователю')
     .addUserOption(option => 
         option
         .setName('user')
-        .setDescription('Who?')
+        .setDescription('Кто?')
         .setRequired(true)
     )
     .addStringOption(option =>
         option
         .setName('duration')
-        .setDescription('input duration (1m, 1d...n other)')
+        .setDescription('Вставьте время (1m, 1d...и так далее)')
         .setRequired(true)
     ),
     

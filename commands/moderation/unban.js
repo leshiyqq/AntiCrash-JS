@@ -4,11 +4,11 @@ const errEmb = require(`${process.cwd()}/models/errEmbed.js`);
 module.exports = {
     data: new SlashCommandBuilder()
     .setName('unban')
-    .setDescription('Unban a member!')
+    .setDescription('Дает разбан пользователю')
     .addStringOption(option => 
         option
         .setName('userid')
-        .setDescription('Input a userid!')
+        .setDescription('Вставьте айди пользователя')
         .setRequired(true)
     ),
     async execute(interaction) {
