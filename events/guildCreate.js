@@ -1,6 +1,7 @@
 const { Events } = require('discord.js');
-let lc = require(`${process.cwd()}/models/logschannel.js`);
-let pu = require(`${process.cwd()}/models/profileuser.js`);
+const lc = require(`${process.cwd()}/models/logschannel.js`);
+const pu = require(`${process.cwd()}/models/profileuser.js`);
+const ac = require(`${process.cwd()}/models/anticrash.js`);
 
 module.exports = {
     name: Events.GuildCreate,
@@ -14,12 +15,18 @@ module.exports = {
         }
 
         guild.members.cache.forEach(async (member) => {
-            let findDocs2 = await pu.findOne({ uid: member.id})
+            let findDocs2 = await pu.findOne({ uid: member.id })
             if (!findDocs2) {
-                let docs = new pu({uid: member.id, money: "0"});
+                let docs = new pu({uid: member.id, gid: guild.id, money: "0"});
                 docs.save();
             }
         })
-        
+
+        let findDocs3 = await ac.findOne({gid: guild.id})
+
+        if (!findDocs3) {
+            let docs = new ac({toogle: true, gid: guild.id})
+            docs.save();
+        }
     }
 }

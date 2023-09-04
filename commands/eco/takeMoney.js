@@ -1,44 +1,42 @@
-const { SlashCommandBuilder } = require('discord.js');
-let pu = require(`${process.cwd()}/models/profileuser.js`);
+const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
+const pu = require(`${process.cwd()}/models/profileuser.js`);
 
 module.exports = {
     data: new SlashCommandBuilder()
-    .setName('take-money')
-    .setDescription('Отнять деньги у пользователя')
+    .setName("take-money")
+    .setDescription("Отнять деньги у пользователя")
     .setDMPermission(false)
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .addNumberOption(option =>
         option
-        .setName('num')
-        .setDescription('Количество')
-        .setRequired(true)    
+        .setName("num")
+        .setDescription("Количество").setRequired(true)
     )
     .addUserOption(option =>
         option
-        .setName('user')
-        .setDescription('Укажите пользователя')    
+        .setName("user")
+        .setDescription("Укажите пользователя")
         .setRequired(true)
     ),
 
     async execute(interaction) {
-        
-        if (interaction.user.id !== interaction.guild.ownerId) { await interaction.reply("Вы не овнер!"); return }
+        const amountAuthor = interaction.options.getNumber("num");
+        const user = interaction.options.getUser("user");
 
-        var amount = interaction.options.getNumber('num');
-        const user = interaction.options.getUser('user');
+        const amount = Math.round(amountAuthor);
 
-        const findUser = await pu.findOne({ uid: user.id });
+        const findUser = await pu.findOne({ uid: user.id, gid: interaction.guild.id }); // Ищем пользователя у кого надо отнять деньги
 
-        var money = Number(findUser.money);
+        let money = Number(findUser.money); // Деньги пользователя
 
         if (!findUser || !user) { await interaction.reply("Юзер не найден!"); return }
 
-        const res = money -= amount;
+        const res = (money -= amount); // Берем деньги у пользователя
 
         if (0 > res) { await interaction.reply("Разность меньше нуля! Нельзя снять столько денег!"); return }
 
-        await findUser.updateOne({money: res});
+        await findUser.updateOne({ money: res }); // Обновляем в бд
 
         await interaction.reply("Успешно снято!");
-
     }
 }

@@ -1,11 +1,11 @@
-const { SlashCommandBuilder } = require('discord.js');
-const errEmb = require(`${process.cwd()}/models/errEmbed.js`);
+const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
     .setName('unmute')
     .setDescription('Дает размут пользователю')
     .setDMPermission(false)
+    .setDefaultMemberPermissions(PermissionFlagsBits.MuteMembers)
     .addUserOption(option => 
         option
         .setName('user')
@@ -16,14 +16,9 @@ module.exports = {
         const user = interaction.options.getUser('user');
         const member = await interaction.guild.members.fetch(user.id);
 
-        if (!member) return await interaction.reply("Этот пользователь не на сервере!");
+        if (!member) { await interaction.reply("Этот пользователь не на сервере!"); return }
 
-        try {
-            await member.timeout(null);
-            await interaction.reply(`Окей я размьютил - ${member.user.username}`);
-        } catch (e) {
-            if (e.code == 50013) return await interaction.reply(`У меня нет прав чтобы дать мьют - ${member.user.username}`);
-            else return await interaction.reply({embeds: [errEmb]});
-        }
+        await member.timeout(null);
+        await interaction.reply(`Окей я размьютил - ${member.user.username}`);
     }
 }

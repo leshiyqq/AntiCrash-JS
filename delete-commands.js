@@ -4,7 +4,6 @@ const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord.js');
 
 const clientId = require('./config.json').clientId;
-const guildId = require('./config.json').guildId;
 const token = require('./config.json').token;
 
 const commands = [];
@@ -22,6 +21,6 @@ for (const folder of commandFolders) {
 
 const rest = new REST({ version: '10' }).setToken(token);
 
-rest.delete(Routes.applicationGuildCommand(clientId, guildId, ''))
-	.then(() => console.log('Successfully deleted guild command'))
+rest.delete(Routes.applicationCommand(clientId, ''))
+	.then(() => console.log('Successfully deleted command'))
 	.catch(console.error);

@@ -50,11 +50,8 @@ for (const file of eventFiles) {
 
 (async () => {
 	try {
-		if (uri == "" || uri == null) console.log("DB has not found.");
-		else {
-			await mongoose.connect(uri);
-			console.log("Connected to DB.");
-		}
+		await mongoose.connect(uri, { family: 4 }).catch(e => console.log("Ошибка к подключении базы данных"));
+		console.log("Connected to DB.");
 	} catch (e) {
 		console.log(e);
 	}
