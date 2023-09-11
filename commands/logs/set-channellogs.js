@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
+const { SlashCommandBuilder, PermissionFlagsBits, EmbedBuilder } = require("discord.js");
 const lc = require(`${process.cwd()}/models/logschannel.js`);
 
 module.exports = {
@@ -21,7 +21,15 @@ module.exports = {
         let findDocs = await lc.findOne({ gid: interaction.guild.id });
         if (findDocs.logs === false) { await interaction.reply("Логи отключены!"); return }
 
+        const e = new EmbedBuilder()
+        .setColor('DarkRed')
+        .setTitle("Настройки изменены!")
+        .setDescription(`Команда: **Лог-каннал**\nАйди пользователя: **${interaction.user.id}**\nКанал: **${channel.name}**`)
+        .setFooter({ text: `Вызвал: ${interaction.user.username}` })
+        .setThumbnail(interaction.user.avatarURL())
+        .setTimestamp()
+
         await findDocs.updateOne({ $set: { cid: channel.id } });
-        await interaction.reply(`Успешно, канал ${channel.name} теперь канал для логов!`);
+        await interaction.reply({ embeds: [e] });
     }
 }

@@ -21,8 +21,9 @@ module.exports = {
         .setColor("Random")
         .setTitle("Профиль")
         .setDescription(`Айди: **${findDocs.uid}**\nДеньги: **${findDocs.money}**`)
+        .setFooter({ text: `Вызвал: ${interaction.user.username}` })
         .setThumbnail(user.avatarURL())
-        .setFooter({ text: `Вызвал: ${interaction.user.username}` });
+        .setTimestamp()
 
         await interaction.reply({ embeds: [e] });
     }

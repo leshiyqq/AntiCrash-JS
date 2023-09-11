@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
+const { SlashCommandBuilder, PermissionFlagsBits, EmbedBuilder } = require("discord.js");
 const lc = require(`${process.cwd()}/models/logschannel.js`);
 
 module.exports = {
@@ -18,17 +18,19 @@ module.exports = {
 
         const findDocs = await lc.findOne({ gid: interaction.guild.id });
 
-        if (findDocs.logs === toogle) await interaction.reply("Такое значение уже установлено");
+        if (findDocs.logs === toogle)  { await interaction.reply("Такое значение уже установлено"); return; }
 
-        else {
-            if (toogle === true) {
-                await findDocs.updateOne({ logs: true });
-                await interaction.reply("Успешно изменено!");
-            }
-            else if (toogle === false) {
-                await findDocs.updateOne({ logs: false });
-                await interaction.reply("Успешно изменено!");
-            }
-        }
+        const showToogleMessage = toogle ? "Включена" : "Выключена";
+
+        const e = new EmbedBuilder()
+        .setColor('DarkRed')
+        .setTitle("Настройки изменены!")
+        .setDescription(`Команда: **Логи**\nАйди пользователя: **${interaction.user.id}**\nНастройка: **${showToogleMessage}**`)
+        .setFooter({ text: `Вызвал: ${interaction.user.username}` })
+        .setThumbnail(interaction.user.avatarURL())
+        .setTimestamp()
+
+        await findDocs.updateOne({ logs: true });
+        await interaction.reply({ embeds: [e] });
     }
 }

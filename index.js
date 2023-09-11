@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits, Collection } = require('discord.js');
+const { Client, GatewayIntentBits, Collection, RESTJSONErrorCodes } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 const mongoose = require('mongoose');
@@ -10,12 +10,13 @@ const client = new Client({
 	 GatewayIntentBits.MessageContent,
 	 GatewayIntentBits.GuildPresences,
 	 GatewayIntentBits.GuildMessageReactions,
-	 GatewayIntentBits.GuildIntegrations
+	 GatewayIntentBits.DirectMessages
 	],
 });
 
 const token = require('./config.json').token;
 const uri = require('./config.json').uri;
+
 
 client.commands = new Collection();
 const foldersPath = path.join(__dirname, 'commands');
@@ -47,6 +48,7 @@ for (const file of eventFiles) {
 		client.on(event.name, (...args) => event.execute(...args));
 	}
 }
+
 
 (async () => {
 	try {

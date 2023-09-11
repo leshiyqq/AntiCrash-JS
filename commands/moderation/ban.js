@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } = require("discord.js");
+const { SlashCommandBuilder, PermissionFlagsBits, EmbedBuilder } = require("discord.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -20,20 +20,23 @@ module.exports = {
     async execute(interaction) {
         const user = interaction.options.getUser("user");
         const reas = interaction.options.getString("reason");
+        const member = interaction.guild.members.cache.get(user.id);
 
-        if (user.id === interaction.user.id) { await interaction.reply("Ты не можешь забанить себя!"); return }
-        if (!interaction.guild.members.cache.get(user.id)) { await interaction.reply("Такого пользователя нет на сервере"); return }
+        if (member.id === interaction.user.id) { await interaction.reply("Ты не можешь забанить себя!"); return }
+        if (!member) { await interaction.reply("Такого пользователя нет на сервере"); return }
 
-        await interaction.channel.guild.members.ban(user.id, { reason: reas });
+        if (member.bannable !== true) return;
+        await member.ban({ reason: reas });
+
         const e = new EmbedBuilder()
-        .setColor("#8B0000")
-        .setTitle("**Успешно!**")
+        .setColor("DarkRed")
+        .setTitle("Успешно!")
         .setThumbnail(interaction.user.avatarURL())
         .setFooter({ text: `Забанил: ${interaction.user.username}` })
         .setTimestamp()
 
-        if (reas == null) e.setDescription( `**Я забанил - ${user.username}**\n**Его айди - ${user.id}**\n**Причина не указана**` );
-        else e.setDescription( `**Я забанил - ${user.username}**\n**Его айди - ${user.id}**\n**По причине - ${reas}**` );
+        if (reas == null) e.setDescription( `Я забанил - **${member.user.username}**\nЕго айди - **${member.id}**\n**Причина не указана**` );
+        else e.setDescription( `Я забанил - **${member.user.username}**\nЕго айди - **${member.id}**\nПо причине - **${reas}**` );
 
         await interaction.reply({ embeds: [e] });
     }

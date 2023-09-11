@@ -36,7 +36,7 @@ module.exports = {
         let moneyAuthor = Number(findAuthor.money); // Деньги автора
 
         if (!findUser || !user || !findAuthor) { await interaction.reply("Юзер не найден"); return }
-        if (moneyAuthor < amount) { await interaction.reply("У вас не достаточно денег"); return }
+        if (moneyAuthor<  amount) { await interaction.reply("У вас не достаточно денег"); return }
 
         const com = Math.round((amount / 100) * 20); // Комиссия
 

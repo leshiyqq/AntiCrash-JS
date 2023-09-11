@@ -15,7 +15,7 @@ module.exports = {
         }
 
         guild.members.cache.forEach(async (member) => {
-            let findDocs2 = await pu.findOne({ uid: member.id })
+            let findDocs2 = await pu.findOne({ uid: member.id, gid: guild.id })
             if (!findDocs2) {
                 let docs = new pu({uid: member.id, gid: guild.id, money: "0"});
                 docs.save();

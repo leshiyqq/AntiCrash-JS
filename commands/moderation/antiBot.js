@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits, EmbedBuilder } = require('discord.js');
 const ac = require(`${process.cwd()}/models/anticrash.js`);
 
 module.exports = {
@@ -23,6 +23,16 @@ module.exports = {
 
         await findDocs.updateOne({toogle: toogle});
 
-        await interaction.reply("Успешно изменено!");
+        const showToogleMessage = toogle ? "Включена" : "Выключена";
+
+        const embT = new EmbedBuilder()
+        .setColor('DarkRed')
+        .setTitle("Настройки изменены!")
+        .setDescription(`Команда: **АнтиБот**\nАйди пользователя: **${interaction.user.id}**\nНастройка: **${showToogleMessage}**`)
+        .setFooter({ text: `Вызвал: ${interaction.user.username}` })
+        .setThumbnail(interaction.user.avatarURL())
+        .setTimestamp()
+
+        await interaction.reply({ embeds: [embT] });
     }
 }

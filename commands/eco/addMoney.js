@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
+const { SlashCommandBuilder, PermissionFlagsBits, EmbedBuilder } = require("discord.js");
 const pu = require(`${process.cwd()}/models/profileuser.js`);
 
 module.exports = {
@@ -38,6 +38,14 @@ module.exports = {
 
         await findUser.updateOne({ money: res }); // Обновляем в бд
 
-        await interaction.reply("Успешно зачислено!");
+        const e = new EmbedBuilder()
+        .setColor('DarkRed')
+        .setTitle("Зачисление денег!")
+        .setDescription(`Пользователь: **${interaction.user.username}**\nПользователю: **${user.username}**\nКоличество: **${amount}**`)
+        .setFooter({ text: `Выдал: ${interaction.user.username}`})
+        .setThumbnail(user.avatarURL())
+        .setTimestamp()
+
+        await interaction.reply({embeds: [e]});
     }
 }

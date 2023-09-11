@@ -22,5 +22,5 @@ for (const folder of commandFolders) {
 const rest = new REST({ version: '10' }).setToken(token);
 
 rest.put(Routes.applicationCommands(clientId), {body: commands})
-	.then(() => console.log("Succesfully"))
+	.then(() => console.log("Succesfully", commands))
 	.catch(console.error);

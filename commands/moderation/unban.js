@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits, EmbedBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -16,6 +16,15 @@ module.exports = {
         const userid = interaction.options.getString('userid');
 
         await interaction.guild.members.unban(userid);
-        await interaction.reply(`Я разбанил человека по айди - ${userid}`);
+
+        const e = new EmbedBuilder()
+        .setColor("DarkRed")
+        .setTitle("Разбан!")
+        .setDescription(`Я разбанил по айди - **${userid}**`)
+        .setFooter({ text: `Разбанил: ${interaction.user.username}` })
+        .setThumbnail(interaction.user.avatarURL())
+        .setTimestamp()
+
+        await interaction.reply({ embeds: [e] });
     }
 }
