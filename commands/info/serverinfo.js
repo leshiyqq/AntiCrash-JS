@@ -32,7 +32,7 @@ module.exports = {
         .addFields({ name: "Каналов", value: `${guild.channels.channelCountWithoutThreads}`, inline: true })
         .addFields({ name: "Логи", value: logs ? "Включены" : "Отключены", inline: true });
 
-        if (logs_channel !== undefined) e.addFields({ name: "Канал логов", value: logs_channel.name, inline: true });
+        if (logs_channel !== undefined && logs_channel !== null) e.addFields({ name: "Канал логов", value: logs_channel.name, inline: true });
 
         await interaction.reply({ embeds: [e] });
     }
