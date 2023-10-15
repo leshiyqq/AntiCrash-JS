@@ -1,4 +1,4 @@
-const { Events, ActivityType, GuildFeature } = require('discord.js');
+const { Events, ActivityType } = require('discord.js');
 const pu = require(`${process.cwd()}/models/profileuser.js`);
 const ac = require(`${process.cwd()}/models/anticrash.js`);
 
@@ -9,7 +9,7 @@ module.exports = {
 		console.log(`${client.user.username} ready!`);
 	    client.user.setPresence({
 		    activities: [{
-			    name: 'Бот от лешего | 1.0',
+			    name: 'AntiCrash MAIN!',
 			    type: ActivityType.Streaming,
 			    url: 'https://twitch.tv/leshiytt'
 		    }],
